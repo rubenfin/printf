@@ -6,7 +6,7 @@
 /*   By: rfinneru <rfinneru@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/19 10:06:30 by rfinneru      #+#    #+#                 */
-/*   Updated: 2023/12/15 17:21:41 by rfinneru      ########   odam.nl         */
+/*   Updated: 2023/11/17 14:15:45 by rfinneru      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	format_printer(const char format, va_list args)
 
 int	error_check(const char *format, va_list args, int *i)
 {
-	if (format[*i] == '%' && ft_strchr("cspdiuxX", format[*i + 1]))
+	if (format[*i] == '%' && format[*i + 1] == '\0')
+		return (-1);
+	else if (format[*i] == '%' && ft_strchr("cspdiuxX", format[*i + 1]))
 	{
 		*i += 2;
 		return (format_printer(format[*i - 1], args));
@@ -43,8 +45,6 @@ int	error_check(const char *format, va_list args, int *i)
 	}
 	else if (!ft_strchr("cspdiuxX", format[*i + 1]))
 		return (ft_putchar(format[(*i)++]));
-	else if (format[*i] == '%' && format[*i + 1] == '\0')
-		return (-1);
 	else if (format[*i] != '%')
 		return (ft_putchar(format[(*i)++]));
 	return (0);
@@ -82,72 +82,28 @@ int	ft_printf(const char *format, ...)
 	return (char_count);
 }
 
-// int	main(void)
-// {
-// 	printf("erterterw");
-// 	return (0);
-// }
 int	main(void)
 {
-	ft_printf("aaauauu%iee", ft_printf("dnafsjhy%i\n", 943));
+	void	*p;
+
+	p = NULL;
+	printf(" - %d\n", ft_printf("       Single characters: %c", 'c'));
+	printf(" - %d\n", printf("printf Single characters: %c", 'c'));
+	printf(" - %d\n", ft_printf("       String: %s", "hello"));
+	printf(" - %d\n", printf("printf String: %s", "hello"));
+	printf(" - %d\n", ft_printf("       Void pointer: %p", p));
+	printf(" - %d\n", printf("printf Void pointer: %p", p));
+	// printf(" - %d\n", ft_printf("       Decimal (base 10): %d", -INT_MIN));
+	// printf(" - %d\n", printf("printf Decimal (base 10): %d", -INT_MIN));
+	printf(" - %d\n", ft_printf("       Integer (base 10): %i", INT_MAX));
+	printf(" - %d\n", printf("printf Integer (base 10): %i", INT_MAX));
+	printf(" - %d\n", ft_printf("       Unsigned decimal (base 10):%u", 122));
+	printf(" - %d\n", printf("printf Unsigned decimal (base 10):%u", 122));
+	printf(" - %d\n", ft_printf("       Hexadecimal lowercase: %x", 40044));
+	printf(" - %d\n", printf("printf Hexadecimal lowercase: %x", 40044));
+	printf(" - %d\n", ft_printf("       Hexadecimal uppercase: %X", 78696754));
+	printf(" - %d\n", printf("printf Hexadecimal uppercase: %X", 78696754));
+	printf(" - %d\n", ft_printf("       Percent: %%%%%%"));
+	printf(" - %d\n", printf("printf Percent: %%%%%%"));
 	return (0);
 }
-// int	main(int argc, char **argv)
-// {
-// 	argc = 1;
-// 	int return_val = ft_printf(argv[1]);
-// 	printf("%d", return_val);
-// 	return (0);
-// }
-
-// int	main(void)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	string1[] = "A%%%w";
-// 	char	*string2;
-
-// 	string2 = "123456%%";
-// 	i = ft_printf(string1, string2);
-// 	printf("\n%d\n", i);
-// 	j = printf(string1, string2);
-// 	printf("\n%d", j);
-// 	if (i != j)
-// 	{
-// 		printf("\n\nThe value is incorrect!\ni = %d\nj =%d\n\n", i, j);
-// 	}
-// 	return (0);
-// }
-
-// int	main(void)
-// {
-// 	void	*p;
-
-// 	p = NULL;
-// 	printf("%d\n", ft_printf("       Single characters: %c\n", 'c'));
-// 	printf("%d\n", printf("printf Single characters: %c\n", 'c'));
-// 	printf("%d\n", ft_printf("       String: %s\n", "hello"));
-// 	printf("%d\n", printf("printf String: %s\n", "hello"));
-// 	printf("%d\n", ft_printf("       Void pointer: %p\n", p));
-// 	printf("%d\n", printf("printf Void pointer: %p\n", p));
-// 	printf("%d\n", ft_printf("       Decimal (base 10): %d\n", -156734560));
-// 	printf("%d\n", printf("printf Decimal (base 10): %d\n", -156734560));
-// 	printf("%d\n", ft_printf("       Integer (base 10): %i\n", -15077634));
-// 	printf("%d\n", printf("printf Integer (base 10): %i\n", -15077634));
-// 	printf("%d\n", ft_printf("       Unsigned decimal (base 10):%u\n", 122));
-// 	printf("%d\n", printf("printf Unsigned decimal (base 10):%u\n", 122));
-// 	printf("%d\n", ft_printf("       Hexadecimal lowercase: %x\n", 40044));
-// 	printf("%d\n", printf("printf Hexadecimal lowercase: %x\n", 40044));
-// 	printf("%d\n", ft_printf("       Hexadecimal uppercase: %X\n", 40044));
-// 	printf("%d\n", printf("printf Hexadecimal uppercase: %X\n", 40044));
-// 	printf("%d\n", ft_printf("       Percent: %%%%\n"));
-// 	printf("%d\n", printf("printf Percent: %%%%\n"));
-// 	return (0);
-// }
-
-// int	main(void)
-// {
-// 	// printf("%c && %s\n", "string" ,'c');
-// 	ft_printf("%c && %s\n", "string" ,'c');
-// 	return (0);
-// }
